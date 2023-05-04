@@ -8,6 +8,7 @@ NA
 Just click the deployment link on github
 
 Deployment link
+https://abewd.github.io/dailyPlanner/
 
 Credit
 github.com/abewd
