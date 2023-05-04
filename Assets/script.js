@@ -1,13 +1,44 @@
-// Write code to display the current date in the header
+var todayDate = dayjs().format("dddd, MMM DD YYYY");
+$("#currentDay").html(todayDate);
 
-var todayDate = dayjs().format("dddd,MM DD YYYY");
-$("currentDay").html(todayDate);
-
-// Wrap in code which delays trigger until the page has rendered
 $(document).ready(function () {
   $(".saveBtn").on("click", function () {
-    // obtain nearby values
-    var text = $(this).siblings("description").val();
+    var text = $(this).siblings(".description").val();
     var time = $(this).parent().attr("id");
+    localStorage.setItem(time, text);
   });
+
+  function timeTracker() {
+    var timeNow = dayjs().hour();
+
+    $(".time-block").each(function () {
+      var blockTime = parseInt($(this).attr("id").split("-")[1]);
+
+      if (blockTime < timeNow) {
+        $(this).removeClass("future");
+        $(this).removeClass("present");
+        $(this).addClass("past");
+      } else if (blockTime === timeNow) {
+        $(this).removeClass("past");
+        $(this).removeClass("future");
+        $(this).addClass("present");
+      } else {
+        $(this).removeClass("present");
+        $(this).removeClass("past");
+        $(this).addClass("future");
+      }
+    });
+  }
+
+  $("#hour-9 .description").val(localStorage.getItem("hour-9"));
+  $("#hour-10 .description").val(localStorage.getItem("hour-10"));
+  $("#hour-11 .description").val(localStorage.getItem("hour-11"));
+  $("#hour-12 .description").val(localStorage.getItem("hour-12"));
+  $("#hour-13 .description").val(localStorage.getItem("hour-13"));
+  $("#hour-14 .description").val(localStorage.getItem("hour-14"));
+  $("#hour-15 .description").val(localStorage.getItem("hour-15"));
+  $("#hour-16 .description").val(localStorage.getItem("hour-16"));
+  $("#hour-17 .description").val(localStorage.getItem("hour-17"));
+
+  timeTracker();
 });
